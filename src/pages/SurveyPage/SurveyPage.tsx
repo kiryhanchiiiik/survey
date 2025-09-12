@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import css from "./SurveyPage.module.scss";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import toast from "react-hot-toast";
 
 interface Option {
   label: string;
@@ -100,15 +101,31 @@ function SurveyPage() {
     if (step === 0 && !income) return;
     if (step === 1 && !employment) return;
     if (step === 2) {
-      const phoneRegex = /^\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/;
+      const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
       if (!phoneRegex.test(phone)) {
-        alert("Please enter a valid US phone number (e.g., 123-456-7890).");
+        toast.error(
+          "Please enter a valid US phone number (e.g., 123-456-7890)."
+        );
         return;
       }
       navigate("/success");
       return;
     }
     setStep(step + 1);
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 10) value = value.slice(0, 10);
+
+    // Форматируем как XXX-XXX-XXXX
+    if (value.length > 6) {
+      value = `${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6, 10)}`;
+    } else if (value.length > 3) {
+      value = `${value.slice(0, 3)}-${value.slice(3, 6)}`;
+    }
+
+    setPhone(value);
   };
 
   return (
@@ -163,14 +180,16 @@ function SurveyPage() {
               transition={{ duration: 0.5 }}
               className={css.question}
             >
-              <label className={css.label}>US Phone Number:</label>
-              <input
-                type="text"
-                placeholder="123-456-7890"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
+              <div className={css.phoneInputWrapper}>
+                <label className={css.phoneLabel}>US Phone Number:</label>
+                <input
+                  type="text"
+                  placeholder="123-456-7890"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  className={css.phoneInput}
+                />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
