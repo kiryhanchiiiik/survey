@@ -1,0 +1,19 @@
+@use "./reset/reset" as *;
+@use "./fonts/fonts" as *;
+
+body {
+  font-family: "Gilroy-Medium", sans-serif;
+  background-color: #141414;
+  color: #f9f9f9;
+}
+
+.container {
+  max-width: 375px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  cursor: pointer;
+}
