@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import css from "./SurveyPage.module.scss";
-import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import toast from "react-hot-toast";
+import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
+import ProgressBar from "../../components/ProgressBar/ProgressBar";
+import css from "./SurveyPage.module.scss";
 
 interface Option {
   label: string;
@@ -25,61 +26,6 @@ const employmentOptions: Option[] = [
   { label: "Retired", value: "retired" },
   { label: "Other", value: "other" },
 ];
-
-const CustomDropdown = ({
-  options,
-  selected,
-  onSelect,
-}: {
-  options: Option[];
-  selected: string;
-  onSelect: (value: string) => void;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  return (
-    <div className={css.customSelectWrapper} ref={dropdownRef}>
-      <button
-        type="button"
-        className={css.selectButton}
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        {options.find((o) => o.value === selected)?.label}
-        <span className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>▼</span>
-      </button>
-      {isOpen && (
-        <ul className={css.dropdownList}>
-          {options.map((option) => (
-            <li
-              key={option.value}
-              className={css.dropdownItem}
-              onClick={() => {
-                onSelect(option.value);
-                setIsOpen(false);
-              }}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
 
 function SurveyPage() {
   const navigate = useNavigate();
@@ -118,7 +64,6 @@ function SurveyPage() {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 10) value = value.slice(0, 10);
 
-    // Форматируем как XXX-XXX-XXXX
     if (value.length > 6) {
       value = `${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6, 10)}`;
     } else if (value.length > 3) {

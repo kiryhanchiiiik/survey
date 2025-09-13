@@ -6,9 +6,16 @@ function LandingPage() {
   return (
     <div className={css.container}>
       <h1>
-        Welcome to the <span>Survey</span>
+        Welcome to <span>Kiryhanchik Investments!</span>
       </h1>
-      <p>Please click below to start.</p>
+      <p>
+        We help you find reliable investment solutions tailored to your income
+        level and lifestyle.
+      </p>
+      <p>
+        Take a short survey (3 quick questions) — it will take less than a
+        minute and allow us to provide you with personalized options.
+      </p>
       <button className={css.navigateBtn} onClick={() => navigate("/survey")}>
         Start Survey
       </button>
