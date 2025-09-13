@@ -60,6 +60,12 @@ function SurveyPage() {
     setStep(step + 1);
   };
 
+  const handleBack = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
+
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 10) value = value.slice(0, 10);
@@ -139,9 +145,21 @@ function SurveyPage() {
           )}
         </AnimatePresence>
 
-        <button className={css.btn} type="button" onClick={handleNext}>
-          {step < 2 ? "Next" : "Submit"}
-        </button>
+        <div className={css.buttonsWrapper}>
+          {step > 0 && (
+            <button
+              className={`${css.btn} ${css.backBtn}`}
+              type="button"
+              onClick={handleBack}
+            >
+              Back
+            </button>
+          )}
+
+          <button className={css.btn} type="button" onClick={handleNext}>
+            {step < 2 ? "Next" : "Submit"}
+          </button>
+        </div>
       </div>
     </div>
   );
