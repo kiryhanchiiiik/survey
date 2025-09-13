@@ -25,6 +25,6 @@ This project collects basic financial information from users and validates input
 
 ```bash
 git clone https://github.com/kiryhanchiiiik/survey
-cd survey-project
+cd survey
 npm install
 npm run dev
