@@ -30,7 +30,9 @@ const employmentOptions: Option[] = [
 function SurveyPage() {
   const navigate = useNavigate();
 
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState<number>(
+    Number(localStorage.getItem("step")) || 0
+  );
   const [income, setIncome] = useState(localStorage.getItem("income") || "");
   const [employment, setEmployment] = useState(
     localStorage.getItem("employment") || ""
@@ -41,11 +43,24 @@ function SurveyPage() {
     localStorage.setItem("income", income);
     localStorage.setItem("employment", employment);
     localStorage.setItem("phone", phone);
-  }, [income, employment, phone]);
+    localStorage.setItem("step", step.toString());
+  }, [income, employment, phone, step]);
 
   const handleNext = () => {
-    if (step === 0 && !income) return;
-    if (step === 1 && !employment) return;
+    if (step === 0) {
+      if (!income) {
+        toast.error("Please select your income range.");
+        return;
+      }
+    }
+
+    if (step === 1) {
+      if (!employment) {
+        toast.error("Please select your employment status.");
+        return;
+      }
+    }
+
     if (step === 2) {
       const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
       if (!phoneRegex.test(phone)) {
@@ -54,9 +69,11 @@ function SurveyPage() {
         );
         return;
       }
+      localStorage.removeItem("step");
       navigate("/success");
       return;
     }
+
     setStep(step + 1);
   };
 

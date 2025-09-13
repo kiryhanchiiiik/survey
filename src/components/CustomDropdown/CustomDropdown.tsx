@@ -41,7 +41,14 @@ export default function CustomDropdown({
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {options.find((o) => o.value === selected)?.label || "Select..."}
-        <span className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>▼</span>
+        <span className={`${css.arrow} ${isOpen ? css.arrowUp : ""}`}>
+          <img
+            width={20}
+            height={20}
+            src="/public/img/arrow-down.svg"
+            alt="arrow"
+          />
+        </span>
       </button>
       {isOpen && (
         <ul className={css.dropdownList}>

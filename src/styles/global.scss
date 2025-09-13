@@ -9,9 +9,15 @@ body {
 
 .container {
   max-width: 375px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   padding: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  gap: 15px;
 }
 
 button {
