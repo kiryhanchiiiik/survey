@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SurveyPage from "./pages/SurveyPage/SurveyPage";
 import SuccessPage from "./pages/SuccessPage/SuccessPage";
 import "./App.scss";
-import { Toaster } from "react-hot-toast";
 
 function App() {
   return (

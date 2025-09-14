@@ -10,7 +10,7 @@ function SuccessPage() {
         Investments will contact you shortly and provide investment solutions
         tailored specifically to you.
       </p>
-      <img className={css.img} src="/public/img/like.png" alt="Like" />
+      <img className={css.img} src="/img/like.png" alt="Like" />
     </div>
   );
 }

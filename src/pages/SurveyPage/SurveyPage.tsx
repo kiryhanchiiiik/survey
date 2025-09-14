@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
+import axios from "axios";
 import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import css from "./SurveyPage.module.scss";
@@ -46,7 +47,7 @@ function SurveyPage() {
     localStorage.setItem("step", step.toString());
   }, [income, employment, phone, step]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 0) {
       if (!income) {
         toast.error("Please select your income range.");
@@ -69,8 +70,19 @@ function SurveyPage() {
         );
         return;
       }
-      localStorage.removeItem("step");
-      navigate("/success");
+
+      try {
+        await axios.post("/api/survey", {
+          income,
+          employment,
+          phone,
+        });
+
+        localStorage.removeItem("step");
+        navigate("/success");
+      } catch (err: any) {
+        console.log(err);
+      }
       return;
     }
 
