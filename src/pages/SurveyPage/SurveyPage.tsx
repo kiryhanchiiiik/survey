@@ -72,11 +72,12 @@ function SurveyPage() {
       }
 
       try {
-        await axios.post("/api/survey", {
-          income,
-          employment,
-          phone,
-        });
+        // await axios.post("/api/survey", {
+        //   income,
+        //   employment,
+        //   phone,
+        // });
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         localStorage.removeItem("step");
         navigate("/success");
