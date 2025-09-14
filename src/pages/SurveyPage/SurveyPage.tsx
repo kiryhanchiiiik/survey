@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import toast from "react-hot-toast";
-import axios from "axios";
 import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
 import ProgressBar from "../../components/ProgressBar/ProgressBar";
 import css from "./SurveyPage.module.scss";
